@@ -17,7 +17,7 @@ export async function POST(request, { params }) {
 
     let decoded;
     try {
-      decoded = jwt.verify(token, process.env.JWT_SECRET);
+      decoded = jwt.verify(token, "a-secure-secret-for-jwt-signing");
     } catch (e) {
       return NextResponse.json({ message: 'Invalid or expired token.' }, { status: 401 });
     }
