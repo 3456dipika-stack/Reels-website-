@@ -1,8 +1,9 @@
 import { NextResponse } from 'next/server';
 import AuthUser from '@/models/AuthUser';
+import User from '@/models/User';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { authConnection } from '@/lib/mongodb';
+import { authConnection, usersConnection } from '@/lib/mongodb';
 
 export async function POST(request) {
   try {
@@ -23,8 +24,16 @@ export async function POST(request) {
       return NextResponse.json({ message: 'Invalid credentials.' }, { status: 401 });
     }
 
+    // Find the corresponding user profile to include its ID in the token
+    await usersConnection;
+    const userProfile = await User.findOne({ authId: authUser._id });
+    if (!userProfile) {
+      // This case should not happen in a consistent database.
+      return NextResponse.json({ message: 'Could not find a user profile for the authenticated user.' }, { status: 500 });
+    }
+
     const token = jwt.sign(
-      { userId: authUser._id, username: authUser.username },
+      { userId: authUser._id, username: authUser.username, profileId: userProfile._id },
       process.env.JWT_SECRET,
       { expiresIn: '1h' }
     );

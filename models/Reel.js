@@ -15,10 +15,10 @@ const ReelSchema = new mongoose.Schema({
     ref: 'User',
     required: true,
   },
-  likes: {
-    type: Number,
-    default: 0,
-  },
+  likes: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  }],
   comments: [{
     user: {
       type: mongoose.Schema.Types.ObjectId,
@@ -30,6 +30,10 @@ const ReelSchema = new mongoose.Schema({
       default: Date.now,
     },
   }],
+  shareCount: {
+    type: Number,
+    default: 0,
+  },
 }, { timestamps: true });
 
 export default reelsConnection.model('Reel', ReelSchema);
