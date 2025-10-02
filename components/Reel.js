@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { getAuthToken, getUserFromToken } from '../lib/auth';
+import { getAuthToken, getUserFromToken } from '@/lib/auth';
 import CommentSection from './CommentSection'; // Import the new component
 
 const Reel = ({ reel }) => {
