@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { getAuthToken } from '../lib/auth';
+import { getAuthToken } from '@/lib/auth';
 
 const CommentSection = ({ reelId, comments, onCommentPosted }) => {
   const [newComment, setNewComment] = useState('');

@@ -1,7 +1,8 @@
 import Reel from '@/components/Reel';
 
 async function getReels() {
-  const res = await fetch('http://localhost:3000/api/reels', { cache: 'no-store' });
+  const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000';
+  const res = await fetch(`${baseUrl}/api/reels`, { cache: 'no-store' });
 
   if (!res.ok) {
     // This will be caught by the error boundary
