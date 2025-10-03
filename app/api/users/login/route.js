@@ -34,7 +34,7 @@ export async function POST(request) {
 
     const token = jwt.sign(
       { userId: authUser._id, username: authUser.username, profileId: userProfile._id },
-      process.env.JWT_SECRET,
+      "this-is-a-very-secure-secret-and-should-be-changed",
       { expiresIn: '1h' }
     );
 
